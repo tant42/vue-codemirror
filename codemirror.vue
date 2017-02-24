@@ -128,6 +128,32 @@
         // _this.value = cm.getValue()
         _this.code = cm.getValue()
       })
+      if (!!_this.$emit) {
+        this.editor.on('cursorActivity', function() {
+          _this.$emit('cursorActivity')
+        })
+
+        // No info events.
+        [ 
+          "update", "refresh", "scroll", "cursorActivity"
+        ].forEach(function(evtLabel) {
+          _this.editor.on(evtLabel, function(cm) {
+            _this.$emit(evtLabel)
+          }
+        }
+
+        // Standard events.
+        [
+          "blur", "focus", "mousedown", "dblclick", "touchstart", 
+          "contextmenu", "keydown", "keypress", "keyup", "cut", 
+          "copy", "paste", "dragstart", "dragenter", "dragover", 
+          "dragleave", "drop", "scrollCursorIntoView"
+        ].forEach(function(evtLabel) {
+          _this.editor.on(evtLabel, function(cm, evt) {
+            _this.$emit(evtLabel, evt)
+          }
+        })
+      }
     },
     mounted: function() {
       var _this = this
