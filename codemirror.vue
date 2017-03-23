@@ -7,7 +7,7 @@
   require('codemirror/lib/codemirror.css')
   require('codemirror/mode/meta')
 
-  module.exports = {
+  export default {
     data: function() {
       return {
         content: '',
